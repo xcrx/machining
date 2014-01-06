@@ -1,6 +1,6 @@
 import sys
 import time
-from PyQt4 import QtCore, QtGui, uic
+from PyQt4 import QtCore, QtGui
 from Orders import Orders
 from Parts import Parts
 from Material import Material
@@ -14,20 +14,59 @@ class Main(QtGui.QMainWindow):
     """
     Main script for the machining system.
     Opens the main window with the mdiArea and menu.
-    This script should only be used for opening new sudwindows.
+    This script should only be used for opening new sud-windows.
     
     If a connection to the database can not be made, the application 
     warns and then closes.
     """
-    def __init__(self, parent=None):
+    def __init__(self):
         def connections():
-            self.ordersBut.clicked.connect(self.show_orders)
-            self.partsBut.clicked.connect(self.show_parts)
-            self.materialBut.clicked.connect(self.show_material)
-            self.scheduleBut.clicked.connect(self.show_schedule)
-            self.barcodeBut.clicked.connect(self.show_barcode)
-        QtGui.QMainWindow.__init__(self, parent)
-        uic.loadUi('ui/main.ui', self)
+            self.orders_button.clicked.connect(self.show_orders)
+            self.parts_button.clicked.connect(self.show_parts)
+            self.material_button.clicked.connect(self.show_material)
+            self.schedule_button.clicked.connect(self.show_schedule)
+            self.barcode_button.clicked.connect(self.show_barcode)
+
+        QtGui.QMainWindow.__init__(self)
+        self.resize(800, 600)
+        self.setWindowTitle("Machining")
+        self.setWindowIcon(QtGui.QIcon(":/icons/main.png"))
+
+        self.central_widget = QtGui.QWidget(self)
+        self.layout = QtGui.QVBoxLayout(self.central_widget)
+
+        self.frame = QtGui.QFrame(self)
+        self.frame.setMinimumSize(QtCore.QSize(0, 35))
+        self.frame.setMaximumSize(QtCore.QSize(2000, 40))
+        self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtGui.QFrame.Raised)
+
+        self.orders_button = QtGui.QPushButton(QtGui.QIcon(":/icons/orders.png"), "Orders", self.frame)
+        self.schedule_button = QtGui.QPushButton(QtGui.QIcon(":/icons/schedule.png"), "Schedule", self.frame)
+        self.parts_button = QtGui.QPushButton(QtGui.QIcon(":/icons/parts.png"), "Parts", self.frame)
+        self.material_button = QtGui.QPushButton(QtGui.QIcon(":/icons/material.png"), "Material", self.frame)
+        self.barcode_button = QtGui.QPushButton(QtGui.QIcon(":/icons/barcode.png"), "Barcode", self.frame)
+
+        self.button_layout = QtGui.QHBoxLayout(self.frame)
+        self.button_layout.setContentsMargins(9, 1, 9, 1)
+        self.button_layout.addWidget(self.orders_button)
+        self.button_layout.addWidget(self.schedule_button)
+        self.button_layout.addWidget(self.parts_button)
+        self.button_layout.addWidget(self.material_button)
+        self.button_layout.addWidget(self.barcode_button)
+        self.button_layout.addStretch(1)
+        self.frame.setLayout(self.button_layout)
+
+        self.mdi_area = QtGui.QMdiArea(self)
+        self.mdi_area.setViewMode(QtGui.QMdiArea.TabbedView)
+        self.mdi_area.setTabsClosable(True)
+        self.mdi_area.setTabsMovable(True)
+        self.mdi_area.setBackground(QtGui.QBrush(QtGui.QColor(155, 155, 155), QtCore.Qt.Dense4Pattern))
+
+        self.layout.addWidget(self.frame)
+        self.layout.addWidget(self.mdi_area)
+        self.setCentralWidget(self.central_widget)
+
         self.read_settings()
         connections()
     
@@ -36,37 +75,37 @@ class Main(QtGui.QMainWindow):
         Function creating new subWindows
         """
         QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        sub = self.mdiArea.addSubWindow(mod())
+        sub = self.mdi_area.addSubWindow(mod())
         sub.showMaximized()
         restore_cursor()
         return sub
         
 ####SubWindow Calls
-    def show_orders(self, a=None):
+    def show_orders(self):
         orders = self.new_subwindow(Orders)
         orders_widget = orders.widget()
-        orders_widget.setWindowIcon(QtGui.QIcon('ui/orders.png'))
-        orders_widget.goto_part.connect(self.goto_parts)
+        orders_widget.setWindowIcon(QtGui.QIcon(':/icons/orders.png'))
+        orders_widget.goto_part.connect(self.go_to_parts)
         return orders
         
-    def show_parts(self, a=None):
+    def show_parts(self):
         parts = self.new_subwindow(Parts)
-        parts.widget().setWindowIcon(QtGui.QIcon('ui/parts.png'))
+        parts.widget().setWindowIcon(QtGui.QIcon(':/icons/parts.png'))
         return parts
 
-    def show_schedule(self, a=None):
+    def show_schedule(self):
         schedule = self.new_subwindow(Schedule)
         schedule_widget = schedule.widget()
-        schedule_widget.goto_part.connect(self.goto_parts)
+        schedule_widget.goto_part.connect(self.go_to_parts)
 
-    def show_material(self, a=None):
-        material = Material()
+    def show_material(self):
+        material = Material(self)
         material.show()
         screen_center = self.geometry().center()
         widget_center = material.rect().center()
         material.move(screen_center-widget_center)
 
-    def show_barcode(self, a=None):
+    def show_barcode(self):
         barcode = Barcode(self)
         barcode.show()
         screen_center = self.geometry().center()
@@ -74,7 +113,7 @@ class Main(QtGui.QMainWindow):
         barcode.move(screen_center-widget_center)
 ####
 
-    def goto_parts(self, part):
+    def go_to_parts(self, part):
         """
         Opens the parts form and goes to part.
         part should be a part number not a part id.
@@ -122,10 +161,10 @@ def main():
         QtGui.QMessageBox.critical(None, "No Connection!", "The database connection could not be established.")
         sys.exit(1)
     update_splash("Loading GUI...")
-    myapp = Main()
-    myapp.show()
+    my_app = Main()
+    my_app.show()
     update_splash("GUI Loaded...")
-    splash.finish(myapp)
+    splash.finish(my_app)
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

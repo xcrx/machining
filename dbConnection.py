@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtSql, QtCore, uic
+from PyQt4 import QtGui, QtSql, QtCore
 
 
 def default_connection():
@@ -112,7 +112,26 @@ class DatabaseSettings(QtGui.QDialog):
     """
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self, parent)
-        uic.loadUi('ui/databaseSettings.ui', self)
+        self.setWindowIcon(QtGui.QIcon(":/icons/main.png"))
+        self.layout = QtGui.QGridLayout(self)
+
+        self.hostname_label = QtGui.QLabel("Hostname", self)
+        self.hostname = QtGui.QLineEdit(self)
+        self.database_label = QtGui.QLabel("Database", self)
+        self.database = QtGui.QLineEdit(self)
+
+        self.buttons = QtGui.QDialogButtonBox(self)
+        self.buttons.setOrientation(QtCore.Qt.Horizontal)
+        self.buttons.setStandardButtons(QtGui.QDialogButtonBox.Cancel | QtGui.QDialogButtonBox.Ok)
+
+        self.layout.addWidget(self.hostname_label, 0, 0, 1, 1)
+        self.layout.addWidget(self.hostname, 0, 1, 1, 1)
+        self.layout.addWidget(self.database_label, 1, 0, 1, 1)
+        self.layout.addWidget(self.database, 1, 1, 1, 1)
+        self.layout.addWidget(self.buttons, 2, 0, 1, 2)
+
+        self.buttons.accepted.connect(self.accept)
+        self.buttons.rejected.connect(self.reject)
         
     def get_data(self):
         self.exec_()

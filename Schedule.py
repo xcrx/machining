@@ -1,4 +1,4 @@
-from PyQt4 import QtCore, QtGui, QtSql, uic
+from PyQt4 import QtCore, QtGui, QtSql
 from dbConnection import db_err
 
 
@@ -13,7 +13,35 @@ class Schedule(QtGui.QWidget):
             self.add.clicked.connect(self.add_)
 
         QtGui.QWidget.__init__(self, parent)
-        uic.loadUi('ui/schedule.ui', self)
+        self.setWindowIcon(QtGui.QIcon(":/icons/schedule.png"))
+        self.layout = QtGui.QGridLayout(self)
+
+        self.up = QtGui.QToolButton(self)
+        self.up.setMinimumSize(QtCore.QSize(24, 24))
+        self.up.setMaximumSize(QtCore.QSize(24, 24))
+        self.up.setArrowType(QtCore.Qt.UpArrow)
+        self.down = QtGui.QToolButton(self)
+        self.down.setMinimumSize(QtCore.QSize(24, 24))
+        self.down.setMaximumSize(QtCore.QSize(24, 24))
+        self.down.setArrowType(QtCore.Qt.DownArrow)
+        self.add = QtGui.QToolButton(self)
+        self.add.setMinimumSize(QtCore.QSize(24, 24))
+        self.add.setMaximumSize(QtCore.QSize(24, 24))
+        self.add.setStyleSheet("color: rgb(0, 170, 0);")
+        self.remove = QtGui.QToolButton(self)
+        self.remove.setMinimumSize(QtCore.QSize(24, 24))
+        self.remove.setMaximumSize(QtCore.QSize(24, 24))
+        self.remove.setStyleSheet("color: rgb(170, 0, 0);")
+        schedule_spacer = QtGui.QSpacerItem(668, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.tabs = QtGui.QTabWidget(self)
+
+        self.layout.addWidget(self.up, 0, 0, 1, 1)
+        self.layout.addWidget(self.down, 0, 1, 1, 1)
+        self.layout.addWidget(self.add, 0, 2, 1, 1)
+        self.layout.addWidget(self.remove, 0, 3, 1, 1)
+        self.layout.addItem(schedule_spacer, 0, 4, 1, 1)
+        self.layout.addWidget(self.tabs, 1, 0, 1, 5)
+
         connections()
         self.generate_schedules()
         

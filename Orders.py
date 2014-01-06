@@ -1,4 +1,4 @@
-from PyQt4 import QtCore, QtGui, QtSql, uic
+from PyQt4 import QtCore, QtGui, QtSql
 from PrintWork import PrintWork
 from dbConnection import write_connection, db_err
 from workOrder import save_work_order
@@ -12,18 +12,43 @@ class Orders(QtGui.QWidget):
         def connections():
             self.filter.textChanged.connect(self.filter_orders)
             self.search.returnPressed.connect(self.search_orders)
-            self.activeTable.entered.connect(self.load_print)
-            self.waitingTable.entered.connect(self.load_print)
-            self.setupTable.entered.connect(self.load_print)
-            self.setupTable.doubleClicked.connect(self.go_to_part)
-            self.activeTable.doubleClicked.connect(self.go_to_part)
-            self.waitingTable.doubleClicked.connect(self.go_to_part)
-            self.inProcessTable.doubleClicked.connect(self.go_to_part)
-            self.workOrder.clicked.connect(self.new_work_order)
+            self.active_table.entered.connect(self.load_print)
+            self.waiting_table.entered.connect(self.load_print)
+            self.setup_table.entered.connect(self.load_print)
+            self.setup_table.doubleClicked.connect(self.go_to_part)
+            self.active_table.doubleClicked.connect(self.go_to_part)
+            self.waiting_table.doubleClicked.connect(self.go_to_part)
+            self.in_process_table.doubleClicked.connect(self.go_to_part)
+            self.work_order.clicked.connect(self.new_work_order)
             self.shortcuts()
 
         QtGui.QWidget.__init__(self, parent)
-        uic.loadUi('ui/currentOrders.ui', self)
+        self.setWindowIcon(QtGui.QIcon(":/icons/orders.png"))
+        self.layout = QtGui.QGridLayout(self)
+        self.work_order = QtGui.QPushButton("Create Work Order", self)
+        self.search = QtGui.QLineEdit(self)
+        self.search.setPlaceholderText("Search...")
+        self.filter = QtGui.QLineEdit(self)
+        self.filter.setPlaceholderText("Filter...")
+        self.tab_widget = QtGui.QTabWidget(self)
+        self.tab_widget.setMouseTracking(True)
+
+        self.layout.addWidget(self.work_order, 0, 0, 1, 1)
+        self.layout.addWidget(self.search, 0, 1, 1, 1)
+        self.layout.addWidget(self.filter, 0, 2, 1, 1)
+        self.layout.setColumnStretch(3, 1)
+        self.layout.addWidget(self.tab_widget, 1, 0, 1, 4)
+
+        self.active_table = QtGui.QTableView(self.tab_widget)
+        self.in_process_table = QtGui.QTableView(self.tab_widget)
+        self.waiting_table = QtGui.QTableView(self.tab_widget)
+        self.setup_table = QtGui.QTableView(self.tab_widget)
+
+        self.tab_widget.addTab(self.active_table, "Active Orders")
+        self.tab_widget.addTab(self.in_process_table, "In Process")
+        self.tab_widget.addTab(self.waiting_table, "Waiting on Material")
+        self.tab_widget.addTab(self.setup_table, "No Setup")
+
         self.read_settings()
         connections()
         self.load_orders()
@@ -41,8 +66,8 @@ class Orders(QtGui.QWidget):
         if qry:
             active_mod = QtSql.QSqlQueryModel()
             active_mod.setQuery(qry)
-            self.activeTable.setModel(active_mod)
-            self.activeTable.resizeColumnsToContents()
+            self.active_table.setModel(active_mod)
+            self.active_table.resizeColumnsToContents()
             return True
         else:
             return False
@@ -52,8 +77,8 @@ class Orders(QtGui.QWidget):
         if qry:
             setup_mod = QtSql.QSqlQueryModel()
             setup_mod.setQuery(qry)
-            self.setupTable.setModel(setup_mod)
-            self.setupTable.resizeColumnsToContents()
+            self.setup_table.setModel(setup_mod)
+            self.setup_table.resizeColumnsToContents()
             return True
         else:
             return False
@@ -63,8 +88,8 @@ class Orders(QtGui.QWidget):
         if qry:
             material_mod = QtSql.QSqlQueryModel()
             material_mod.setQuery(qry)
-            self.waitingTable.setModel(material_mod)
-            self.waitingTable.resizeColumnsToContents()
+            self.waiting_table.setModel(material_mod)
+            self.waiting_table.resizeColumnsToContents()
             return True
         else:
             return False
@@ -74,14 +99,14 @@ class Orders(QtGui.QWidget):
         if qry:
             in_process_mod = QtSql.QSqlQueryModel()
             in_process_mod.setQuery(qry)
-            self.inProcessTable.setModel(in_process_mod)
-            self.inProcessTable.resizeColumnsToContents()
+            self.in_process_table.setModel(in_process_mod)
+            self.in_process_table.resizeColumnsToContents()
             return True
         else:
             return False
 
     def filter_orders(self, text):
-        mod = self.activeTable.model()
+        mod = self.active_table.model()
         i = 0
         while i < mod.rowCount():
             e = 0
@@ -90,13 +115,13 @@ class Orders(QtGui.QWidget):
                 if text.toLower() in mod.data(mod.index(i, e)).toString().toLower():
                     x = False
                 e += 1
-            self.activeTable.setRowHidden(i, x)
+            self.active_table.setRowHidden(i, x)
             i += 1
 
     def search_orders(self):
-        mod = self.activeTable.model()
+        mod = self.active_table.model()
         text = self.search.text()
-        i = self.activeTable.currentIndex().row()+1
+        i = self.active_table.currentIndex().row()+1
         found = False
         while i < mod.rowCount():
             e = 0
@@ -106,24 +131,24 @@ class Orders(QtGui.QWidget):
                     x = True
                 e += 1
             if x:
-                self.activeTable.selectRow(i)
+                self.active_table.selectRow(i)
                 found = True
                 break
             i += 1
         if not found:
             QtGui.QMessageBox.information(self, "Not Found", "'{0}' not found!".format(text))
-            self.activeTable.selectRow(0)
+            self.active_table.selectRow(0)
 
     def load_print(self, index):
         row = index.row()
         col = index.column()
         file_name = index.model().data(index.model().index(row, 0)).toString()
-        if index.model() == self.activeTable.model():
-            table = self.activeTable
-        elif index.model() == self.waitingTable.model():
-            table = self.waitingTable
-        elif index.model() == self.setupTable.model():
-            table = self.setupTable
+        if index.model() == self.active_table.model():
+            table = self.active_table
+        elif index.model() == self.waiting_table.model():
+            table = self.waiting_table
+        elif index.model() == self.setup_table.model():
+            table = self.setup_table
         else:
             return
         if col == 0:
@@ -132,7 +157,7 @@ class Orders(QtGui.QWidget):
             table.setToolTip("")
 
     def new_work_order(self):
-        index = self.activeTable.currentIndex()
+        index = self.active_table.currentIndex()
         row = index.row()
         mod = index.model()
         self.part = mod.data(mod.index(row, 9)).toString()

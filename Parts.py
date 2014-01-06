@@ -1,7 +1,7 @@
 """
 Form for view and editing parts
 """
-from PyQt4 import QtCore, QtGui, QtSql, uic
+from PyQt4 import QtCore, QtGui, QtSql
 from dbConnection import write_connection, db_err
 from PrintWork import PrintWork
 from workOrder import save_work_order
@@ -12,6 +12,11 @@ def prepare_string(string):
     string = string.replace("'", "\\'")
     string = string.toUtf8()
     return string
+
+
+def set_max(widgets, size):
+    for widget in widgets:
+        widget.setMaximumSize(QtCore.QSize(600, size))
     
 
 class Parts(QtGui.QWidget):
@@ -33,7 +38,222 @@ class Parts(QtGui.QWidget):
             self.nextSetup.clicked.connect(self.next_setup)
             self.orderWork.clicked.connect(self.new_work_order)
         QtGui.QWidget.__init__(self, parent)
-        uic.loadUi('ui/parts.ui', self)
+        self.setWindowIcon(QtGui.QIcon(":/icons/parts.png"))
+
+        self.layout = QtGui.QGridLayout(self)
+
+        self.partNumber = QtGui.QLabel("Part Number", self)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.partNumber.setFont(font)
+        part_spacer = QtGui.QSpacerItem(478, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+
+        self.infoTabs = QtGui.QTabWidget(self)
+
+        self.basic_info_tab = QtGui.QWidget()
+        self.basic_info_layout = QtGui.QVBoxLayout(self.basic_info_tab)
+        self.description_label = QtGui.QLabel("Description", self.basic_info_tab)
+        self.description = QtGui.QLineEdit(self.basic_info_tab)
+        self.material_label = QtGui.QLabel("Material", self.basic_info_tab)
+        self.material = QtGui.QLineEdit(self.basic_info_tab)
+        self.machine_label = QtGui.QLabel("Machine", self.basic_info_tab)
+        self.machine = QtGui.QLineEdit(self.basic_info_tab)
+        self.routing_label = QtGui.QLabel("Routing", self.basic_info_tab)
+        self.routing = QtGui.QLineEdit(self.basic_info_tab)
+        self.destination_label = QtGui.QLabel("Destination", self.basic_info_tab)
+        self.destination = QtGui.QLineEdit(self.basic_info_tab)
+        self.on_order_label = QtGui.QLabel("On Order", self.basic_info_tab)
+        self.onOrder = QtGui.QLineEdit(self.basic_info_tab)
+        self.onOrder.setReadOnly(True)
+        self.notes_label = QtGui.QLabel("Notes", self.basic_info_tab)
+        self.notes = QtGui.QPlainTextEdit(self.basic_info_tab)
+        self.partId = QtGui.QLabel(self.basic_info_tab)
+        self.partId.setAlignment(QtCore.Qt.AlignRight)
+
+        set_max([self.description_label, self.material_label, self.machine_label, self.routing_label,
+                 self.destination_label, self.on_order_label, self.notes_label], 18)
+        set_max([self.description, self.material, self.machine, self.routing, self.destination, self.onOrder], 24)
+
+        self.basic_info_layout.addWidget(self.description_label)
+        self.basic_info_layout.addWidget(self.description)
+        self.basic_info_layout.addWidget(self.material_label)
+        self.basic_info_layout.addWidget(self.material)
+        self.basic_info_layout.addWidget(self.machine_label)
+        self.basic_info_layout.addWidget(self.machine)
+        self.basic_info_layout.addWidget(self.routing_label)
+        self.basic_info_layout.addWidget(self.routing)
+        self.basic_info_layout.addWidget(self.destination_label)
+        self.basic_info_layout.addWidget(self.destination)
+        self.basic_info_layout.addWidget(self.on_order_label)
+        self.basic_info_layout.addWidget(self.onOrder)
+        self.basic_info_layout.addWidget(self.notes_label)
+        self.basic_info_layout.addWidget(self.notes)
+        self.basic_info_layout.addStretch(1)
+        self.basic_info_layout.addWidget(self.partId)
+
+        self.machine_tab = QtGui.QWidget()
+
+        self.machine_layout = QtGui.QVBoxLayout(self.machine_tab)
+        self.machine_label_m = QtGui.QLabel("Machine", self.machine_tab)
+        self.machine_m = QtGui.QLineEdit(self.machine_tab)
+        self.machine_m.setReadOnly(True)
+        self.routing_label_m = QtGui.QLabel("Routing", self.machine_tab)
+        self.routing_m = QtGui.QLineEdit(self.machine_tab)
+        self.routing_m.setReadOnly(True)
+        self.material_label_m = QtGui.QLabel("Material", self.machine_tab)
+        self.material_m = QtGui.QLineEdit(self.machine_tab)
+        self.material_m.setReadOnly(True)
+        self.blank_length_label = QtGui.QLabel("Blank Length", self.machine_tab)
+        self.blankLength = QtGui.QLineEdit(self.machine_tab)
+        self.program_label = QtGui.QLabel("Program", self.machine_tab)
+        self.program = QtGui.QLineEdit(self.machine_tab)
+        self.clamp_label = QtGui.QLabel("Clamp", self.machine_tab)
+        self.clamp = QtGui.QLineEdit(self.machine_tab)
+
+        self.machine_info_layout = QtGui.QGridLayout()
+        self.bar_pull_label = QtGui.QLabel("Bar Pull", self.machine_tab)
+        self.barPull = QtGui.QLineEdit(self.machine_tab)
+        self.square_set_label = QtGui.QLabel("Square Set", self.machine_tab)
+        self.squareSet = QtGui.QLineEdit(self.machine_tab)
+        self.pos_stop_label = QtGui.QLabel("Positive Stop", self.machine_tab)
+        self.posStop = QtGui.QLineEdit(self.machine_tab)
+
+        self.machine_info_layout.addWidget(self.bar_pull_label, 0, 0, 1, 1)
+        self.machine_info_layout.addWidget(self.barPull, 1, 0, 1, 1)
+        self.machine_info_layout.addWidget(self.square_set_label, 0, 1, 1, 1)
+        self.machine_info_layout.addWidget(self.squareSet, 1, 1, 1, 1)
+        self.machine_info_layout.addWidget(self.pos_stop_label, 0, 2, 1, 1)
+        self.machine_info_layout.addWidget(self.posStop, 1, 2, 1, 1)
+
+        self.time_layout = QtGui.QGridLayout()
+        self.cycle_label = QtGui.QLabel("Cycle", self.machine_tab)
+        self.cycleTime = QtGui.QLineEdit(self.machine_tab)
+        self.load_label = QtGui.QLabel("(Un)Load", self.machine_tab)
+        self.loadTime = QtGui.QLineEdit(self.machine_tab)
+        self.setup_label = QtGui.QLabel("Setup", self.machine_tab)
+        self.setupTime = QtGui.QLineEdit(self.machine_tab)
+
+        self.time_layout.addWidget(self.cycle_label, 0, 0, 1, 1)
+        self.time_layout.addWidget(self.cycleTime, 1, 0, 1, 1)
+        self.time_layout.addWidget(self.load_label, 0, 1, 1, 1)
+        self.time_layout.addWidget(self.loadTime, 1, 1, 1, 1)
+        self.time_layout.addWidget(self.setup_label, 0, 2, 1, 1)
+        self.time_layout.addWidget(self.setupTime, 1, 2, 1, 1)
+
+        set_max([self.machine_label_m, self.routing_label_m, self.material_label_m, self.blank_length_label,
+                self.program_label, self.clamp_label, self.bar_pull_label, self.square_set_label, self.pos_stop_label,
+                self.cycle_label, self.load_label, self.setup_label], 18)
+        set_max([self.machine_m, self.routing_m, self.material_m, self.blankLength, self.program, self.clamp,
+                 self.barPull, self.squareSet, self.posStop, self.cycleTime, self.loadTime, self.setupTime], 24)
+
+        self.machine_layout.addWidget(self.machine_label_m)
+        self.machine_layout.addWidget(self.machine_m)
+        self.machine_layout.addWidget(self.routing_label_m)
+        self.machine_layout.addWidget(self.routing_m)
+        self.machine_layout.addWidget(self.material_label_m)
+        self.machine_layout.addWidget(self.material_m)
+        self.machine_layout.addWidget(self.blank_length_label)
+        self.machine_layout.addWidget(self.blankLength)
+        self.machine_layout.addWidget(self.program_label)
+        self.machine_layout.addWidget(self.program)
+        self.machine_layout.addWidget(self.clamp_label)
+        self.machine_layout.addWidget(self.clamp)
+        self.machine_layout.addLayout(self.machine_info_layout)
+        self.machine_layout.addLayout(self.time_layout)
+        self.machine_layout.addStretch(1)
+
+        self.toolingTab = QtGui.QWidget()
+
+        self.tooling_layout = QtGui.QGridLayout(self.toolingTab)
+        self.toolingTable = QtGui.QTableView(self.toolingTab)
+        tooling_spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.addTooling = QtGui.QToolButton(self.toolingTab)
+        self.addTooling.setText("+")
+
+        self.tooling_layout.addWidget(self.toolingTable, 0, 0, 1, 2)
+        self.tooling_layout.addItem(tooling_spacer, 1, 0, 1, 1)
+        self.tooling_layout.addWidget(self.addTooling, 1, 1, 1, 1)
+
+        self.infoTabs.addTab(self.basic_info_tab, "Info")
+        self.infoTabs.addTab(self.machine_tab, "Machining")
+        self.infoTabs.addTab(self.toolingTab, "Tooling")
+
+        self.formTabs = QtGui.QTabWidget(self)
+
+        self.printHolder = QtGui.QLabel(self)
+        self.printHolder.setStyleSheet("background-color: rgb(240, 240, 240);")
+
+        self.setupTab = QtGui.QWidget()
+        self.setup_layout = QtGui.QGridLayout(self.setupTab)
+        self.setupPic = QtGui.QLabel(self.setupTab)
+        self.setupPic.setStyleSheet("background-color: rgb(240, 240, 240);")
+        setup_spacer = QtGui.QSpacerItem(300, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.previousSetup = QtGui.QToolButton(self.setupTab)
+        self.previousSetup.setMaximumSize(QtCore.QSize(24, 24))
+        self.previousSetup.setArrowType(QtCore.Qt.LeftArrow)
+        self.nextSetup = QtGui.QToolButton(self.setupTab)
+        self.nextSetup.setMaximumSize(QtCore.QSize(24, 24))
+        self.nextSetup.setArrowType(QtCore.Qt.RightArrow)
+        self.setupIndex = QtGui.QLabel(self.setupTab)
+        self.setupIndex.setMaximumSize(QtCore.QSize(100, 24))
+        self.newSetup = QtGui.QToolButton(self.setupTab)
+        self.newSetup.setMaximumSize(QtCore.QSize(24, 24))
+
+        self.setup_layout.addWidget(self.setupPic, 0, 0, 1, 5)
+        self.setup_layout.addItem(setup_spacer, 1, 0, 1, 1)
+        self.setup_layout.addWidget(self.newSetup, 1, 1, 1, 1)
+        self.setup_layout.addWidget(self.previousSetup, 1, 2, 1, 1)
+        self.setup_layout.addWidget(self.nextSetup, 1, 3, 1, 1)
+        self.setup_layout.addWidget(self.setupIndex, 1, 4, 1, 1)
+
+        self.orderTable = QtGui.QTableView(self)
+
+        self.workTable = QtGui.QTableView(self)
+        self.workTable.setMouseTracking(True)
+
+        self.updatesTab = QtGui.QWidget()
+        self.update_layout = QtGui.QGridLayout(self.updatesTab)
+        self.updateTable = QtGui.QTableView(self.updatesTab)
+        update_spacer = QtGui.QSpacerItem(300, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.newUpdate = QtGui.QPushButton(self.updatesTab)
+
+        self.update_layout.addWidget(self.updateTable, 0, 0, 1, 2)
+        self.update_layout.addItem(update_spacer, 1, 0, 1, 1)
+        self.update_layout.addWidget(self.newUpdate, 1, 1, 1, 1)
+
+        self.formTabs.addTab(self.printHolder, "Print")
+        self.formTabs.addTab(self.setupTab, "Setup")
+        self.formTabs.addTab(self.orderTable, "Orders")
+        self.formTabs.addTab(self.workTable, "Work Orders")
+        self.formTabs.addTab(self.updatesTab, "Updates")
+
+        self.bottom_layout = QtGui.QHBoxLayout(self)
+        self.save = QtGui.QPushButton("Save", self)
+        self.orderWork = QtGui.QPushButton("Order Work", self)
+        self.search = QtGui.QLineEdit(self)
+        self.search.setMinimumSize(QtCore.QSize(200, 24))
+        self.search.setMaximumSize(QtCore.QSize(200, 24))
+        self.search.setPlaceholderText("Search...")
+        self.previous = QtGui.QToolButton(self)
+        self.previous.setArrowType(QtCore.Qt.DownArrow)
+        self.next = QtGui.QToolButton(self)
+        self.next.setArrowType(QtCore.Qt.UpArrow)
+        self.index = QtGui.QLabel(self)
+
+        self.bottom_layout.addWidget(self.save)
+        self.bottom_layout.addWidget(self.orderWork)
+        self.bottom_layout.addStretch(1)
+        self.bottom_layout.addWidget(self.search)
+        self.bottom_layout.addWidget(self.previous)
+        self.bottom_layout.addWidget(self.next)
+        self.bottom_layout.addWidget(self.index)
+
+        self.layout.addWidget(self.partNumber, 0, 0, 1, 1)
+        self.layout.addItem(part_spacer, 0, 1, 1, 1)
+        self.layout.addWidget(self.infoTabs, 1, 0, 1, 1)
+        self.layout.addWidget(self.formTabs, 1, 1, 1, 3)
+        self.layout.addLayout(self.bottom_layout, 0, 2, 1, 2)
+
         self.read_settings()
         connections()
         self.load_data()
@@ -76,11 +296,11 @@ class Parts(QtGui.QWidget):
         self.setWindowTitle(rec.value(0).toString())
         self.description.setText(rec.value(1).toString())
         self.material.setText(rec.value(2).toString())
-        self.material2.setText(rec.value(2).toString())
+        self.material_m.setText(rec.value(2).toString())
         self.machine.setText(rec.value(3).toString())
-        self.machine2.setText(rec.value(3).toString())
+        self.machine_m.setText(rec.value(3).toString())
         self.routing.setText(rec.value(4).toString())
-        self.routing2.setText(rec.value(4).toString())
+        self.routing_m.setText(rec.value(4).toString())
         self.destination.setText(rec.value(5).toString())
         self.onOrder.setText(rec.value(6).toString())
         self.notes.setPlainText(rec.value(7).toString())
@@ -410,7 +630,7 @@ class Parts(QtGui.QWidget):
         Adds new tooling to the current part.
         """
         if self.index.text() != '0':
-            add_tooling = AddTooling(self.index.text())
+            add_tooling = AddTooling(self.index.text(), self)
             add_tooling.exec_()
             self.load_tooling()
         
@@ -553,7 +773,9 @@ class Parts(QtGui.QWidget):
 class PrintView(QtGui.QDialog):
     def __init__(self, print_, parent=None):
         QtGui.QDialog.__init__(self, parent)
-        uic.loadUi('ui/print.ui', self)
+        self.printHolder = QtGui.QLabel(self)
+        self.layout = QtGui.QHBoxLayout(self)
+        self.layout.addWidget(self.printHolder)
         self.printHolder.mousePressEvent = self.done_
         
         self.print_ = print_
@@ -574,7 +796,34 @@ class PrintView(QtGui.QDialog):
 class AddTooling(QtGui.QDialog):
     def __init__(self, setup, parent=None):
         QtGui.QDialog.__init__(self, parent)
-        uic.loadUi('ui/addTool.ui', self)
+        self.resize(350, 200)
+        self.setWindowTitle("Add Tool")
+        self.setWindowIcon(QtGui.QIcon(":/icons/parts.png"))
+
+        self.tool_label = QtGui.QLabel("Tool Number", self)
+        self.operation_label = QtGui.QLabel("Operation", self)
+        self.description_label = QtGui.QLabel("Description", self)
+        self.notes_label = QtGui.QLabel("Notes", self)
+
+        self.notes = QtGui.QLineEdit(self)
+        self.tool_num = QtGui.QLineEdit(self)
+        self.op = QtGui.QLineEdit(self)
+        self.desc = QtGui.QLineEdit(self)
+        self.cancel = QtGui.QPushButton("Cancel", self)
+        self.add = QtGui.QPushButton("Add", self)
+
+        self.layout = QtGui.QGridLayout(self)
+        self.layout.addWidget(self.tool_label, 0, 0, 1, 1)
+        self.layout.addWidget(self.operation_label, 1, 0, 1, 1)
+        self.layout.addWidget(self.description_label, 2, 0, 1, 1)
+        self.layout.addWidget(self.notes_label, 3, 0, 1, 1)
+        self.layout.addWidget(self.notes, 3, 1, 1, 1)
+        self.layout.addWidget(self.tool_num, 0, 1, 1, 1)
+        self.layout.addWidget(self.op, 1, 1, 1, 1)
+        self.layout.addWidget(self.desc, 2, 1, 1, 1)
+        self.layout.addWidget(self.cancel, 4, 0, 1, 1)
+        self.layout.addWidget(self.add, 4, 1, 1, 1)
+
         self.setup = setup
         self.cancel.clicked.connect(self.cancel_)
         self.add.clicked.connect(self.add_)
@@ -585,14 +834,14 @@ class AddTooling(QtGui.QDialog):
             while tools_qry.next():
                 tools.append(tools_qry.value(0).toString())
             tool_comp = QtGui.QCompleter(tools)
-            self.toolNum.setCompleter(tool_comp)
-            self.toolNum.textChanged.connect(self.check_tool)
-            self.toolNum.editingFinished.connect(self.load_tool_info)
+            self.tool_num.setCompleter(tool_comp)
+            self.tool_num.textChanged.connect(self.check_tool)
+            self.tool_num.editingFinished.connect(self.load_tool_info)
         else:
             db_err(tools_qry)
         
     def check_tool(self, text):
-        if self.toolNum.completer().completionCount() > 0:
+        if self.tool_num.completer().completionCount() > 0:
             self.new_tool = False
         else:
             self.new_tool = True
@@ -601,14 +850,14 @@ class AddTooling(QtGui.QDialog):
         if not self.new_tool:
             tools_qry = QtSql.QSqlQuery()
             tool_data = ("Select toolId, operation, description, notes from "
-                         "toolingInfo where toolId = {0}").format(self.toolNum.text())
+                         "toolingInfo where toolId = {0}").format(self.tool_num.text())
             if tools_qry.exec_(tool_data):
                 if tools_qry.first():
                     tool = tools_qry.value(0).toString()
                     op = tools_qry.value(1).toString()
                     desc = tools_qry.value(2).toString()
                     notes = tools_qry.value(3).toString()
-                    self.toolNum.setText(tool)
+                    self.tool_num.setText(tool)
                     self.op.setText(op)
                     self.desc.setText(desc)
                     self.notes.setText(notes)
@@ -624,7 +873,7 @@ class AddTooling(QtGui.QDialog):
         
     def add_(self):
         tools_qry = QtSql.QSqlQuery()
-        tool = self.toolNum.text()
+        tool = self.tool_num.text()
         op = self.op.text()
         desc = self.desc.text()
         notes = self.notes.text()

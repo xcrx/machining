@@ -1,4 +1,4 @@
-from PyQt4 import QtCore, QtGui, uic
+from PyQt4 import QtCore, QtGui
 from dbConnection import write_connection, start_transaction, commit_transaction, rollback_transaction
 from query import query
 
@@ -9,7 +9,20 @@ class Barcode(QtGui.QDialog):
             self.track.returnPressed.connect(self.update)
 
         QtGui.QDialog.__init__(self, parent)
-        uic.loadUi('ui/barcode.ui', self)
+        self.resize(287, 90)
+        self.setWindowIcon(QtGui.QIcon(":/icons/barcode.png"))
+
+        self.status = QtGui.QLineEdit(self)
+        self.status.setPlaceholderText("status...")
+        self.track = QtGui.QLineEdit(self)
+        self.track.setPlaceholderText("tracking...")
+
+        self.layout = QtGui.QGridLayout(self)
+        self.layout.addWidget(self.status, 0, 0, 1, 1)
+        self.layout.addWidget(self.track, 1, 0, 1, 1)
+
+        self.setModal(True)
+
         QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint)
         connections()
