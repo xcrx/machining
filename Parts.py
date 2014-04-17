@@ -421,9 +421,10 @@ class Parts(QtGui.QWidget):
         """
         orders_qry = QtSql.QSqlQuery()
         part = self.partNumber.text()
-        orders_data = ("Select `Part Num`as 'Part #', `Qty`, `Hot`, partOrder_qry.`Order_num` as 'Order #', "
-                       "date_format(ODate, '%Y-%m-%d') as 'Date', `Tracking Num` as 'Tracking' from inventorysystem."
-                       "partOrder_qry join inventorysystem.Orders_tbl on partOrder_qry.Order_num = Orders_tbl.Order_num "
+        orders_data = ("select `Part Num`as 'Part #', `Qty`, `Hot`, partOrder_qry.`Order_num` as 'Order #', `Name` as "
+                       "'Ordered By', date_format(ODate, '%Y-%m-%d') as 'Date', `Tracking Num` as 'Tracking' from "
+                       "inventorysystem.partOrder_qry join (inventorysystem.Orders_tbl join inventorysystem.Users_tbl "
+                       "on Orders_tbl.User_ID = Users_tbl.User_ID) on partOrder_qry.Order_num = Orders_tbl.Order_num "
                        "where `Part Num` = '{0}' order by partOrder_qry.`Order_num` Desc").format(part)
         if orders_qry.exec_(orders_data):
             orders_mod = QtSql.QSqlQueryModel()
