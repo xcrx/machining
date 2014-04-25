@@ -40,9 +40,13 @@ class Orders(QtGui.QWidget):
         self.layout.addWidget(self.tab_widget, 1, 0, 1, 4)
 
         self.active_table = QtGui.QTableView(self.tab_widget)
+        self.active_table.setMouseTracking(True)
         self.in_process_table = QtGui.QTableView(self.tab_widget)
+        self.in_process_table.setMouseTracking(True)
         self.waiting_table = QtGui.QTableView(self.tab_widget)
+        self.waiting_table.setMouseTracking(True)
         self.setup_table = QtGui.QTableView(self.tab_widget)
+        self.setup_table.setMouseTracking(True)
 
         self.tab_widget.addTab(self.active_table, "Active Orders")
         self.tab_widget.addTab(self.in_process_table, "In Process")
@@ -154,7 +158,7 @@ class Orders(QtGui.QWidget):
         if col == 0:
             table.setToolTip('<img src="{0}/{1}.jpg" width="480" height="320"/>'.format(self.prints, file_name))
         else:
-            table.setToolTip("")
+            table.setToolTip("Not Working")
 
     def new_work_order(self):
         index = self.active_table.currentIndex()

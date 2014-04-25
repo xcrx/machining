@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>768</width>
+    <height>693</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Parts</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>parts.png</normaloff>parts.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_8" rowstretch="0,0,0" columnstretch="0,0,0,0,1,0,0,0,0">
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <item row="1" column="4" colspan="5">
+    <widget class="QTabWidget" name="formTabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="printTab">
+      <attribute name="title">
+       <string>Print</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="printHolder">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(240, 240, 240);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="setupTab">
+      <attribute name="title">
+       <string>Setup</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0" colspan="5">
+        <widget class="QLabel" name="setupPic">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(240, 240, 240);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>301</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="previousSetup">
+         <property name="maximumSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="arrowType">
+          <enum>Qt::LeftArrow</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QToolButton" name="nextSetup">
+         <property name="maximumSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="arrowType">
+          <enum>Qt::RightArrow</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLabel" name="setupIndex">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0 of 0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="newSetup">
+         <property name="maximumSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Add new picture</string>
+         </property>
+         <property name="text">
+          <string>+</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="orderTab">
+      <attribute name="title">
+       <string>Orders</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QTableView" name="orderTable"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="workTab">
+      <attribute name="title">
+       <string>Work</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QTableView" name="workTable">
+         <property name="mouseTracking">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="updatesTab">
+      <attribute name="title">
+       <string>Updates</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0" colspan="2">
+        <widget class="QTableView" name="updateTable"/>
+       </item>
+       <item row="1" column="0">
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>330</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="newUpdate">
+         <property name="text">
+          <string>New Update</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="2" colspan="3">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>478</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="0" colspan="4">
+    <widget class="QTabWidget" name="infoTabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="infoTab">
+      <attribute name="title">
+       <string>Basic Info</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_7" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0" columnstretch="1,0,0" columnminimumwidth="0,0,25">
+       <item row="14" column="0" rowspan="2" colspan="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="14" column="2" rowspan="2">
+        <widget class="QLabel" name="partId">
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0" colspan="3">
+        <widget class="QLineEdit" name="routing">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="3">
+        <widget class="QLabel" name="label_2">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Material</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="3">
+        <widget class="QLineEdit" name="machine">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <widget class="QLineEdit" name="description">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="3">
+        <widget class="QLabel" name="label">
+         <property name="maximumSize">
+          <size>
+           <width>600</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Description</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0" colspan="3">
+        <widget class="QLineEdit" name="destination">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0" colspan="3">
+        <widget class="QLabel" name="label_7">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>On Order</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="3">
+        <widget class="QLabel" name="label_3">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Machine</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" colspan="3">
+        <widget class="QLabel" name="label_5">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Destination</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="3">
+        <widget class="QLineEdit" name="material">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="3">
+        <widget class="QLabel" name="label_4">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Routing</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0" colspan="3">
+        <widget class="QPlainTextEdit" name="notes">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>75</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="3">
+        <widget class="QLineEdit" name="onOrder">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0" colspan="3">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Notes</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="machTab">
+      <attribute name="title">
+       <string>Machining</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Machine</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="machine2">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Routing</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="routing2">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_15">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Material</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="material2">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_19">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Blank Legth</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="blankLength">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Program</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="program">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>18</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Clamp PSI</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="clamp">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="barPull">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_13">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>18</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Square Set</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>18</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Bar Pull</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="squareSet">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_14">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777214</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Positive Stop</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLineEdit" name="posStop">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="timeGrid">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>(Un)Load</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>Cycle</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Setup</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="cycleTime">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="inputMask">
+            <string>##:##:##; </string>
+           </property>
+           <property name="text">
+            <string>00:00:00</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="loadTime">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="inputMask">
+            <string>##:##:##; </string>
+           </property>
+           <property name="text">
+            <string>00:00:00</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLineEdit" name="setupTime">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="inputMask">
+            <string>##:##:##; </string>
+           </property>
+           <property name="text">
+            <string>00:00:00</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="toolingTab">
+      <attribute name="title">
+       <string>Tooling</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0" colspan="2">
+        <widget class="QTableView" name="toolingTable"/>
+       </item>
+       <item row="1" column="0">
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="addTooling">
+         <property name="text">
+          <string>+</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="save">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="6">
+    <widget class="QToolButton" name="previous">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="arrowType">
+      <enum>Qt::DownArrow</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="7">
+    <widget class="QToolButton" name="next">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="arrowType">
+      <enum>Qt::UpArrow</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="8">
+    <widget class="QLabel" name="index">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>50</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3">
+    <widget class="QLabel" name="partNumber">
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Part Number</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3" colspan="6">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>174</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="5">
+    <widget class="QLineEdit" name="search">
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>200</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="placeholderText">
+      <string>Search...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="orderWork">
+     <property name="text">
+      <string>Order Work</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>description</tabstop>
+  <tabstop>material</tabstop>
+  <tabstop>machine</tabstop>
+  <tabstop>routing</tabstop>
+  <tabstop>destination</tabstop>
+  <tabstop>onOrder</tabstop>
+  <tabstop>notes</tabstop>
+  <tabstop>machine2</tabstop>
+  <tabstop>routing2</tabstop>
+  <tabstop>material2</tabstop>
+  <tabstop>blankLength</tabstop>
+  <tabstop>program</tabstop>
+  <tabstop>clamp</tabstop>
+  <tabstop>barPull</tabstop>
+  <tabstop>squareSet</tabstop>
+  <tabstop>posStop</tabstop>
+  <tabstop>cycleTime</tabstop>
+  <tabstop>loadTime</tabstop>
+  <tabstop>setupTime</tabstop>
+  <tabstop>save</tabstop>
+  <tabstop>previous</tabstop>
+  <tabstop>next</tabstop>
+  <tabstop>newSetup</tabstop>
+  <tabstop>previousSetup</tabstop>
+  <tabstop>nextSetup</tabstop>
+  <tabstop>newUpdate</tabstop>
+  <tabstop>formTabs</tabstop>
+  <tabstop>infoTabs</tabstop>
+  <tabstop>updateTable</tabstop>
+  <tabstop>workTable</tabstop>
+  <tabstop>orderTable</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

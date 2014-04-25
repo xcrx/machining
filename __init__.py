@@ -30,7 +30,7 @@ class Main(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.resize(800, 600)
         self.setWindowTitle("Machining")
-        self.setWindowIcon(QtGui.QIcon(":/icons/main.png"))
+        self.setWindowIcon(QtGui.QIcon("ui//main.png"))
 
         self.central_widget = QtGui.QWidget(self)
         self.layout = QtGui.QVBoxLayout(self.central_widget)
@@ -41,11 +41,11 @@ class Main(QtGui.QMainWindow):
         self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtGui.QFrame.Raised)
 
-        self.orders_button = QtGui.QPushButton(QtGui.QIcon(":/icons/orders.png"), "Orders", self.frame)
-        self.schedule_button = QtGui.QPushButton(QtGui.QIcon(":/icons/schedule.png"), "Schedule", self.frame)
-        self.parts_button = QtGui.QPushButton(QtGui.QIcon(":/icons/parts.png"), "Parts", self.frame)
-        self.material_button = QtGui.QPushButton(QtGui.QIcon(":/icons/material.png"), "Material", self.frame)
-        self.barcode_button = QtGui.QPushButton(QtGui.QIcon(":/icons/barcode.png"), "Barcode", self.frame)
+        self.orders_button = QtGui.QPushButton(QtGui.QIcon("ui/orders.png"), "Orders", self.frame)
+        self.schedule_button = QtGui.QPushButton(QtGui.QIcon("ui/schedule.png"), "Schedule", self.frame)
+        self.parts_button = QtGui.QPushButton(QtGui.QIcon("ui/parts.png"), "Parts", self.frame)
+        self.material_button = QtGui.QPushButton(QtGui.QIcon("ui/material.png"), "Material", self.frame)
+        self.barcode_button = QtGui.QPushButton(QtGui.QIcon("ui/barcode.png"), "Barcode", self.frame)
 
         self.button_layout = QtGui.QHBoxLayout(self.frame)
         self.button_layout.setContentsMargins(9, 1, 9, 1)
@@ -84,13 +84,13 @@ class Main(QtGui.QMainWindow):
     def show_orders(self):
         orders = self.new_subwindow(Orders)
         orders_widget = orders.widget()
-        orders_widget.setWindowIcon(QtGui.QIcon(':/icons/orders.png'))
+        orders_widget.setWindowIcon(QtGui.QIcon('ui/orders.png'))
         orders_widget.goto_part.connect(self.go_to_parts)
         return orders
         
     def show_parts(self):
         parts = self.new_subwindow(Parts)
-        parts.widget().setWindowIcon(QtGui.QIcon(':/icons/parts.png'))
+        parts.widget().setWindowIcon(QtGui.QIcon('ui/parts.png'))
         return parts
 
     def show_schedule(self):

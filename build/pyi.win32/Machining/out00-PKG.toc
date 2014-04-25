@@ -1,0 +1,12 @@
+('C:\\Documents and Settings\\Owner\\My Documents\\GitHub\\machining\\build\\pyi.win32\\Machining\\out00-PKG.pkg',
+ {'BINARY': 1,
+  'DATA': 1,
+  'EXECUTABLE': 1,
+  'EXTENSION': 1,
+  'PYMODULE': 1,
+  'PYSOURCE': 1},
+ [('out00-PYZ.pyz', 'C:\\Documents and Settings\\Owner\\My Documents\\GitHub\\machining\\build\\pyi.win32\\Machining\\out00-PYZ.pyz', 'PYZ'), ('iu', 'C:\\pyinstaller\\PyInstaller\\loader\\iu.pyc', 'PYMODULE'), ('struct', 'C:\\Python27\\lib\\struct.pyc', 'PYMODULE'), ('archive', 'C:\\pyinstaller\\PyInstaller\\loader\\archive.pyc', 'PYMODULE'), ('_pyi_bootstrap', 'C:\\pyinstaller\\support\\_pyi_bootstrap.py', 'PYSOURCE'), ('carchive', 'C:\\pyinstaller\\PyInstaller\\loader\\carchive.py', 'PYSOURCE'), ('pyi_rth_qt4plugins', 'C:\\pyinstaller\\support/rthooks/pyi_rth_qt4plugins.py', 'PYSOURCE'), ('pyi_rth_PIL_Image', 'C:\\pyinstaller\\support/rthooks/pyi_rth_PIL_Image.py', 'PYSOURCE'), ('pyi_rth_encodings', 'C:\\pyinstaller\\support/rthooks/pyi_rth_encodings.py', 'PYSOURCE'), ('__init__', '__init__.py', 'PYSOURCE'), ('Machining.exe.manifest', 'C:\\Documents and Settings\\Owner\\My Documents\\GitHub\\machining\\build\\pyi.win32\\Machining\\Machining.exe.manifest', 'BINARY')],
+ 1,
+ None,
+ True,
+ 0)

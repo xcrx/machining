@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Machining</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>main.png</normaloff>main.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>35</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="topMargin">
+        <number>1</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>1</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="ordersBut">
+         <property name="toolTip">
+          <string>View Orders &lt;ctrl+1&gt;</string>
+         </property>
+         <property name="text">
+          <string>Orders</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>orders.png</normaloff>orders.png</iconset>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="scheduleBut">
+         <property name="toolTip">
+          <string>View Schedule &lt;ctrl+2&gt;</string>
+         </property>
+         <property name="text">
+          <string>Schedule</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>schedule.png</normaloff>schedule.png</iconset>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="partsBut">
+         <property name="toolTip">
+          <string>View Parts &lt;ctrl+3&gt;</string>
+         </property>
+         <property name="text">
+          <string>Parts</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>parts.png</normaloff>parts.png</iconset>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+3</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="materialBut">
+         <property name="toolTip">
+          <string>View Material &lt;ctrl+4&gt;</string>
+         </property>
+         <property name="text">
+          <string>Material</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>material.png</normaloff>material.png</iconset>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+4</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="barcodeBut">
+         <property name="toolTip">
+          <string>Scan Barcodes &lt;ctrl+5&gt;</string>
+         </property>
+         <property name="text">
+          <string>Scanner</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>barcode.png</normaloff>barcode.png</iconset>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+5</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>298</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QMdiArea" name="mdiArea">
+      <property name="background">
+       <brush brushstyle="Dense4Pattern">
+        <color alpha="255">
+         <red>159</red>
+         <green>157</green>
+         <blue>154</blue>
+        </color>
+       </brush>
+      </property>
+      <property name="viewMode">
+       <enum>QMdiArea::TabbedView</enum>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="tabsMovable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <action name="actionActive_Orders">
+   <property name="text">
+    <string>Active Orders</string>
+   </property>
+  </action>
+  <action name="actionCreate_Order">
+   <property name="text">
+    <string>Create Order</string>
+   </property>
+  </action>
+  <action name="actionSchedule">
+   <property name="text">
+    <string>Schedule</string>
+   </property>
+  </action>
+  <action name="actionActive_Work">
+   <property name="text">
+    <string>Active Work</string>
+   </property>
+  </action>
+  <action name="actionMaterial">
+   <property name="text">
+    <string>Material</string>
+   </property>
+  </action>
+  <action name="actionNew_Work">
+   <property name="text">
+    <string>New Work</string>
+   </property>
+  </action>
+  <action name="actionView_Parts">
+   <property name="text">
+    <string>View Parts</string>
+   </property>
+  </action>
+  <action name="actionAdd_Part">
+   <property name="text">
+    <string>Add Part</string>
+   </property>
+  </action>
+  <action name="actionScan_Barcode">
+   <property name="text">
+    <string>Scan Barcode</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
